@@ -1,4 +1,4 @@
-FROM node:16.14.0-alpine AS base
+FROM node:20-alpine AS base
 
 ARG PORT=3000
 ENV PORT $PORT

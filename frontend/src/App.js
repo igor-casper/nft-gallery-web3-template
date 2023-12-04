@@ -8,7 +8,7 @@ import Banner from './components/banner';
 import Nfts from './components/nfts';
 import Reedem from './components/reedem';
 import Footer from './components/footer';
-import { SignerScreen, SignerConnector } from "./components/signer";
+import { WalletConnector } from './components/wallet';
 
 import { fetchAllNFTs } from "./api";
 
@@ -34,7 +34,7 @@ function App() {
 
   return (
     <ChakraProvider theme={mainTheme}>
-      <SignerConnector setSignerAccountHash={setSignerAccountHash} />
+      <WalletConnector setWalletAccountHash={setSignerAccountHash} />
       <Topbar signerAccountHash={signerAccountHash} />
       <Routes>
         <Route

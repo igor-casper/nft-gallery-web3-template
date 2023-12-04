@@ -16,13 +16,16 @@ const isProduction = process.env.NODE_ENV === "production";
 
 console.log("Database URL: ", DB_URL);
 console.log("Database URL: ", DB_URL);
+console.log("Db: ", process.env.MONGO_DB_NAME); // TODO: Clear
+console.log("Usr: ", process.env.MONGO_USERNAME);
+console.log("Pwd: ", process.env.MONGO_PASSWORD);
 console.log("isProduction: ", isProduction);
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(DB_URL, {
-      dbName: process.env.DB_NAME,
+      dbName: process.env.MONGO_DB_NAME,
       ssl: isProduction,
       sslValidate: isProduction,
       user: process.env.MONGO_USERNAME,

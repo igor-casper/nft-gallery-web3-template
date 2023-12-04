@@ -1,9 +1,11 @@
 import React from 'react';
 import { Center, Button, Flex } from '@chakra-ui/react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Signer } from "casper-js-sdk";
+
+const CasperWalletProvider = window.CasperWalletProvider;
 
 const Topbar = ({ signerAccountHash }) => {
+  const provider = CasperWalletProvider();
   const navigate = useNavigate();
   const isSigned = signerAccountHash !== null;
 
@@ -27,7 +29,7 @@ const Topbar = ({ signerAccountHash }) => {
             Logo
           </Center>
         </Link>
-        <Button onClick={isSigned ? () => navigate('/reedem') : Signer.sendConnectionRequest} bg="grey.200" w="120px" h="40px">
+        <Button onClick={isSigned ? () => navigate('/reedem') : provider.requestConnection} bg="grey.200" w="120px" h="40px">
           {isSigned ? 'Reedem' : 'Sign in'}
         </Button>
       </Flex>

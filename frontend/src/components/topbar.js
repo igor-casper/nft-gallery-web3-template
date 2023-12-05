@@ -1,10 +1,10 @@
 import React from 'react';
-import { CasperWallet } from './wallet';
+import { AutoWalletProvider } from './wallet';
 import { Center, Button, Flex } from '@chakra-ui/react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Topbar = ({ signerAccountHash }) => {
-  const provider = CasperWallet;
+  const provider = AutoWalletProvider;
   const navigate = useNavigate();
   const isSigned = signerAccountHash !== null;
 

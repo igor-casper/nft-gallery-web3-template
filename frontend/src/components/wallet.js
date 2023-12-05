@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
-export const CasperWallet = {
+const CasperWallet = {
 	get _provider() {
 		return window.CasperWalletProvider ? window.CasperWalletProvider() : null;
 	},
@@ -41,9 +41,92 @@ export const CasperWallet = {
 	}
 }
 
+const CasperDash = {
+	get _provider() {
+		return window.casperDashHelper ?? null;
+	},
+	get _events() {
+		return {
+			connected: "casperdash:connected",
+			disconnected: "casperdash:disconnected",
+			activeKeyChanged: "casperdash:activeKeyChanged",
+			unsupported: "casperdash:unsupportedEventType"
+		};
+	},
+	events: {
+		get locked() {
+			return CasperDash._events.unsupported;
+		},
+		get unlocked() {
+			return CasperDash._events.unsupported;
+		},
+		get activeKeyChanged() {
+			return CasperDash._events.activeKeyChanged;
+		},
+		get connected() {
+			return CasperDash._events.connected;
+		},
+		get disconnected() {
+			return CasperDash._events.disconnected;
+		}
+	},
+	requestConnection: function () {
+		if (!CasperDash._provider)
+			return false;
+		return CasperDash._provider.requestConnection();
+	},
+	isConnected: function () {
+		if (!CasperDash._provider)
+			return false;
+		return CasperDash._provider.isConnected();
+	},
+	getActivePublicKey: function () {
+		if (!CasperDash._provider)
+			return null;
+		return CasperDash._provider.getActivePublicKey();
+	}
+}
+
+export const AutoWalletProvider = {
+	get _provider() {
+		if (window.CasperWalletProvider)
+			return CasperWallet;
+		return CasperDash;
+	},
+	get _events() {
+		return AutoWalletProvider._provider._events;
+	},
+	events: {
+		get locked() {
+			return AutoWalletProvider._provider.events.locked;
+		},
+		get unlocked() {
+			return AutoWalletProvider._provider.events.unlocked;
+		},
+		get activeKeyChanged() {
+			return AutoWalletProvider._provider.events.activeKeyChanged;
+		},
+		get connected() {
+			return AutoWalletProvider._provider.events.connected;
+		},
+		get disconnected() {
+			return AutoWalletProvider._provider.events.disconnected;
+		}
+	},
+	requestConnection: function () {
+		return AutoWalletProvider._provider.requestConnection();
+	},
+	isConnected: function () {
+		return AutoWalletProvider._provider.isConnected();
+	},
+	getActivePublicKey: function () {
+		return AutoWalletProvider._provider.getActivePublicKey();
+	}
+}
+
 export const WalletConnector = ({ setWalletAccountHash }) => {
 	const [isConnected, setConnected] = useState(false);
-	const provider = CasperWallet;
+	const provider = AutoWalletProvider;
 
 	useEffect(() => {
 		setTimeout(async () => {
@@ -92,24 +175,3 @@ export const WalletConnector = ({ setWalletAccountHash }) => {
 
 	return null;
 };
-
-export const WalletScreen = ({ width }) => {
-	const provider = CasperWallet;
-
-	return (
-		<>
-			<div className="popup">
-				<div className="popup__content popup__content--g20">
-					<>
-						<button
-							className="btn btn--redeem btn--w"
-							onClick={provider.requestConnection}
-						>
-							Connect
-						</button>
-					</>
-				</div>
-			</div>
-		</>
-	);
-}

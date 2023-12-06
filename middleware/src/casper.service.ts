@@ -1,4 +1,4 @@
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { Ok, Err, Result } from 'ts-results';
 import { InjectModel } from '@nestjs/mongoose';
@@ -12,6 +12,7 @@ import {
   CLAccountHash,
   Keys,
 } from 'casper-js-sdk';
+
 import {
   CEP47Client,
   CEP47Events,
@@ -72,8 +73,6 @@ export class CasperService {
     };
 
     bootstrapPendingDeploys();
-
-
 
     this.eventStream.subscribe(EventName.DeployProcessed, async (event) => {
       const { deploy_hash, execution_result } = event.body.DeployProcessed;

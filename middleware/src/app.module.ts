@@ -5,7 +5,6 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CasperService } from './casper.service';
-// import { DeploysService } from './deploys/deploys.service';
 
 import { NFT, NFTSchema } from './schemas/nft.schema';
 import { Deploy, DeploySchema } from './schemas/deploy.schema';
@@ -16,9 +15,6 @@ const isProduction = process.env.NODE_ENV === "production";
 
 console.log("Database URL: ", DB_URL);
 console.log("Database URL: ", DB_URL);
-console.log("Db: ", process.env.MONGO_DB_NAME); // TODO: Clear
-console.log("Usr: ", process.env.MONGO_USERNAME);
-console.log("Pwd: ", process.env.MONGO_PASSWORD);
 console.log("isProduction: ", isProduction);
 
 @Module({

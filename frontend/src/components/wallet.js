@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 
 const CasperWallet = {
 	get _provider() {
-		return window.CasperWalletProvider ? window.CasperWalletProvider() : null;
+		return window.CasperWalletProvider?.();
 	},
 	get _events() {
-		return window.CasperWalletEventTypes ? window.CasperWalletEventTypes : null;
+		return window.CasperWalletEventTypes ?? null;
 	},
 	events: {
 		get locked() {

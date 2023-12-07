@@ -55,5 +55,5 @@ TOTAL_NFTS_NUM= # TOTAL NUMBER OF MINTED NFTs
 Feel free to contribute by utilizing the issues tab or forking the repo and creating PRs for approval. We intend to make this project driven by the community's requests, and any open source contributions are welcome.
 
 ## TODO
-- Finish the CEP42 → CEP78 migration
+- Finish the CEP47 → CEP78 migration
 - App should be able to mint new nfts
